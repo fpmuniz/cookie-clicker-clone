@@ -15,13 +15,20 @@ class Player:
 
     def buy_building(self, building: Building):
         if self.cookies < building.cost:
+            print(f"Not enough cookies to buy {building.name}.")
             return
         self._cookies -= building.cost
         building.create()
+        print(f"Bought a new {building.name}!")
 
     def get_cookies(self, building_list: List[Building]):
+        new_cookies = 0
         for building in building_list:
-            self._cookies += building.generate_batches()
+            new_cookies += building.generate_batches()
+        self._cookies += new_cookies
+        print(f"Got {new_cookies} cookies from buildings.")
 
     def click(self):
-        self._cookies += self._clicker.generate_batches()
+        new_cookies = self._clicker.generate_batches()
+        self._cookies += new_cookies
+        print(f"Got {new_cookies} cookies from clicking.")
