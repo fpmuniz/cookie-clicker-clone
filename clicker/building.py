@@ -1,5 +1,6 @@
 class Building:
     def __init__(self, name: str, batch: float = 0, cost: float = 0):
+        self.name = name
         self.count = 0
         self.batch = batch
         self.cost = cost
