@@ -1,3 +1,5 @@
+import urwid
+
 from clicker.building import Building
 from clicker.player import Player
 
@@ -13,6 +15,38 @@ def generate_buildings():
     return [cursor, grandma, farm, mine, factory, bank, temple]
 
 
+def widget_layout(buildings, player):
+    title = urwid.Text("Cookie Clicker Clone")
+    fill = urwid.Filler(title, "top")
+
+    store_widgets = []
+    info_widgets = []
+    for b in buildings:
+        store_widgets.append(urwid.Button(f"{b.name}: {b.cost:.2f} cookies"))
+        info_widgets.append(
+            urwid.Text(f"{b.name}: {b.count} producing {b.batch} cookies each.")
+        )
+
+    clicker = urwid.Button("Click me!")
+    total = urwid.Text(f"{player.cookies}")
+
+    click_column = urwid.Pile([clicker, total])
+    info = urwid.Pile(info_widgets)
+    store = urwid.Pile(store_widgets)
+
+    cols = urwid.Columns([click_column, info, store])
+    fill = urwid.Filler(cols)
+    return fill
+
+
+def handle_input(key):
+    if key in ("q", "Q"):
+        raise urwid.ExitMainLoop
+
+
 if __name__ == "__main__":
     buildings = generate_buildings()
     player = Player()
+    layout = widget_layout(buildings, player)
+    loop = urwid.MainLoop(layout, unhandled_input=handle_input)
+    loop.run()

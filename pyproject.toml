@@ -6,6 +6,7 @@ authors = ["Felipe Muniz"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+urwid = "^2.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
