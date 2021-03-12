@@ -1,13 +1,24 @@
+import pytest
+
 from clicker.building import Building
 
 
-def test_create_building():
-    click = Building(name="Building", batch=1)
-    click.create()
-    assert click.count == 1
+@pytest.fixture
+def building():
+    return Building(name="Building", batch=1)
 
 
-def test_generate_batches():
-    click = Building(name="Building", batch=1)
-    click.create(10)
-    assert click.generate_batches() == 10
+def test_create_building(building):
+    building.create()
+    assert building.count == 1
+
+
+def test_increase_cost_after_creation(building):
+    building.cost = 1
+    building.create()
+    assert building.cost == 1.15
+
+
+def test_generate_batches(building):
+    building.create(10)
+    assert building.generate_batches() == 10

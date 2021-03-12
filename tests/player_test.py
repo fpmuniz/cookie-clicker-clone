@@ -30,7 +30,7 @@ def test_get_cookies(player, building):
 
 def test_buy_building(player, building):
     building.create()
-    player.get_cookies([building] * 5)
+    player.get_cookies([building] * 6)
     player.buy_building(building)
     assert building.count == 2
-    assert player.cookies == 0
+    assert player.cookies == 25

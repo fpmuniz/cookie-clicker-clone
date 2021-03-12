@@ -11,6 +11,7 @@ class Building:
 
     def create(self, n: int = 1):
         self.count += n
+        self.cost *= self.cost_multiplier ** n
 
     def generate_batches(self) -> float:
         return self.count * self.batch
